@@ -5,7 +5,10 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.ZonedDateTime;
 import java.util.UUID;
 
 @Entity
@@ -23,10 +26,29 @@ public class User {
 	private String username;
 	
 	@NotNull(message = "Password is required")
-	@Size(min = 3, max = 50, message = "Password must be between 3 and 50 characters")
+	@Size(min = 6, message = "Password must be minimal 6 characters")
 	private String password;
 	
 	@NotNull(message = "Role is required")
 	@Enumerated(EnumType.STRING)
 	private Role role;
+	
+	@CreationTimestamp
+	@Column(name = "created_at", updatable = false, nullable = false)
+	private ZonedDateTime createdAt;
+	
+	@UpdateTimestamp
+	@Column(name = "updated_at", nullable = false)
+	private ZonedDateTime updatedAt;
+	
+	@PrePersist
+	protected void onCreate() {
+		this.createdAt = ZonedDateTime.now().withZoneSameInstant(java.time.ZoneId.of("GMT+7"));
+		this.updatedAt = ZonedDateTime.now().withZoneSameInstant(java.time.ZoneId.of("GMT+7"));
+	}
+	
+	@PreUpdate
+	protected void onUpdate() {
+		this.updatedAt = ZonedDateTime.now().withZoneSameInstant(java.time.ZoneId.of("GMT+7"));
+	}
 }

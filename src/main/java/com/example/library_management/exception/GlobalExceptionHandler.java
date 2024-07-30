@@ -16,6 +16,17 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 	
+	@ExceptionHandler(UserNotFoundException.class)
+	public ResponseEntity<ApiResponse<Object>> handleUserNotFoundException(UserNotFoundException ex) {
+		ApiResponse<Object> response = new ApiResponse<>(
+				false,
+				ex.getMessage(),
+				HttpStatus.NOT_FOUND.value(),
+				null
+		);
+		return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+	}
+	
 	@ExceptionHandler(MethodArgumentTypeMismatchException.class)
 	public ResponseEntity<ApiResponse<Object>> handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException ex) {
 		ApiResponse<Object> apiResponse = new ApiResponse<>(
@@ -58,8 +69,7 @@ public class GlobalExceptionHandler {
 		Throwable cause = ex.getMostSpecificCause();
 		String message = "Transaction system exception occurred";
 		
-		if (cause instanceof ConstraintViolationException) {
-			ConstraintViolationException constraintViolationException = (ConstraintViolationException) cause;
+		if (cause instanceof ConstraintViolationException constraintViolationException) {
 			List<String> errors = constraintViolationException.getConstraintViolations().stream()
 					.map(violation -> violation.getMessage())
 					.collect(Collectors.toList());
