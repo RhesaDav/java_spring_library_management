@@ -16,8 +16,8 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 	
-	@ExceptionHandler(UserNotFoundException.class)
-	public ResponseEntity<ApiResponse<Object>> handleUserNotFoundException(UserNotFoundException ex) {
+	@ExceptionHandler(DataNotFoundException.class)
+	public ResponseEntity<ApiResponse<Object>> handleUserNotFoundException(DataNotFoundException ex) {
 		ApiResponse<Object> response = new ApiResponse<>(
 				false,
 				ex.getMessage(),
@@ -88,8 +88,8 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
-	@ExceptionHandler(UserAlreadyExistException.class)
-	public ResponseEntity<ApiResponse<Object>> handleUserAlreadyExistException(UserAlreadyExistException ex) {
+	@ExceptionHandler(DataAlreadyExistException.class)
+	public ResponseEntity<ApiResponse<Object>> handleUserAlreadyExistException(DataAlreadyExistException ex) {
 		ApiResponse<Object> response = new ApiResponse<>(
 				false,
 				ex.getMessage(),

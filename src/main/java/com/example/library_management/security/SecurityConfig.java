@@ -17,7 +17,6 @@ public class SecurityConfig {
 	private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 	private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
 	
-	
 	public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter, JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint, JwtAccessDeniedHandler jwtAccessDeniedHandler) {
 		this.jwtAuthenticationFilter = jwtAuthenticationFilter;
 		this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
@@ -29,6 +28,7 @@ public class SecurityConfig {
 		http.csrf(csrf -> csrf.disable())
 				.authorizeHttpRequests(auth -> auth
 						.requestMatchers("/api/v1/auth/**").permitAll()
+						.requestMatchers("/api/v2/**").permitAll()
 						.requestMatchers("/api/v1/users/**").hasRole("ADMIN")
 						.requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
 						.requestMatchers("/api/v1/user/**").hasRole("USER")

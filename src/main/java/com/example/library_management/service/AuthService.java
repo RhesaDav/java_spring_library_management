@@ -5,8 +5,8 @@ import com.example.library_management.dto.LoginResponseDTO;
 import com.example.library_management.dto.UserDTO;
 import com.example.library_management.entity.Member;
 import com.example.library_management.entity.User;
-import com.example.library_management.exception.UserAlreadyExistException;
-import com.example.library_management.exception.UserNotFoundException;
+import com.example.library_management.exception.DataAlreadyExistException;
+import com.example.library_management.exception.DataNotFoundException;
 import com.example.library_management.repository.MemberRepository;
 import com.example.library_management.repository.UserRepository;
 import com.example.library_management.security.JwtUtil;
@@ -29,7 +29,7 @@ public class AuthService {
 	
 	public User register(UserDTO user) {
 		if (userRepository.findByUsername(user.getUsername()) != null) {
-			throw new UserAlreadyExistException("User already exist");
+			throw new DataAlreadyExistException("User already exist");
 		}
 		
 		User newUser = new User();
@@ -49,11 +49,11 @@ public class AuthService {
 	public LoginResponseDTO login(LoginRequestDTO request) {
 		User user = userRepository.findByUsername(request.getUsername());
 		if (user == null) {
-			throw new UserNotFoundException("User not found");
+			throw new DataAlreadyExistException("User not found");
 		}
 		
 		if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-			throw new UserNotFoundException("Wrong password");
+			throw new DataNotFoundException("Wrong password");
 		}
 		
 		String accessToken = jwtUtil.generateAccessToken(user);
