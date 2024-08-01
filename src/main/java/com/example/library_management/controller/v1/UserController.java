@@ -1,8 +1,8 @@
 package com.example.library_management.controller.v1;
 
-import com.example.library_management.dto.ApiResponse;
-import com.example.library_management.dto.UpdateUserDTO;
+import com.example.library_management.dto.UserDTO;
 import com.example.library_management.entity.User;
+import com.example.library_management.response.ApiResponse;
 import com.example.library_management.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,7 +33,7 @@ public class UserController {
 	}
 	
 	@PatchMapping("/{id}")
-	public ApiResponse<User> updateUser(@PathVariable UUID id, @RequestBody UpdateUserDTO user) {
+	public ApiResponse<User> updateUser(@PathVariable UUID id, @RequestBody UserDTO user) {
 		return new ApiResponse<>(true, "User Updated", HttpStatus.OK.value(), userService.updateUser(id, user));
 	}
 	

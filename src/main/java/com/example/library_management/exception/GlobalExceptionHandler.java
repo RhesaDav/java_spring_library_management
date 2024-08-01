@@ -1,6 +1,6 @@
 package com.example.library_management.exception;
 
-import com.example.library_management.dto.ApiResponse;
+import com.example.library_management.response.ApiResponse;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

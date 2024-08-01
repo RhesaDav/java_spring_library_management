@@ -1,6 +1,6 @@
 package com.example.library_management.service;
 
-import com.example.library_management.dto.UpdateUserDTO;
+import com.example.library_management.dto.UserDTO;
 import com.example.library_management.entity.User;
 import com.example.library_management.exception.UserAlreadyExistException;
 import com.example.library_management.exception.UserNotFoundException;
@@ -41,7 +41,7 @@ public class UserService {
 	}
 	
 	@Transactional
-	public User updateUser(UUID id, UpdateUserDTO userDto) {
+	public User updateUser(UUID id, UserDTO userDto) {
 		User existingUser = userRepository.findById(id)
 				.orElseThrow(() -> new UserNotFoundException("User not found"));
 		
