@@ -20,12 +20,18 @@ public class BorrowedBook {
 	private UUID id;
 	
 	@ManyToOne
-	@JoinColumn(name = "book_id", nullable = false)
+	@JoinColumn(name = "book_id", referencedColumnName = "id", nullable = false)
 	private Book book;
 	
 	@ManyToOne
-	@JoinColumn(name = "member_id", nullable = false)
+	@JoinColumn(name = "member_id", referencedColumnName = "id", nullable = false)
 	private Member member;
+	
+	@Column(name = "borrowed_date", nullable = false)
+	private ZonedDateTime borrowedDate;
+	
+	@Column(name = "returned_date")
+	private ZonedDateTime returnedDate;
 	
 	@CreationTimestamp
 	@Column(name = "created_at", updatable = false, nullable = false)

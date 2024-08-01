@@ -32,7 +32,7 @@ public class Book {
 	
 	@NotNull(message = "quantity is required")
 	@Column(nullable = false)
-	@Min(value = 1, message = "Quantity must at least 1")
+	@Min(value = 0, message = "Quantity must at least 1")
 	private int quantity;
 	
 	@CreationTimestamp

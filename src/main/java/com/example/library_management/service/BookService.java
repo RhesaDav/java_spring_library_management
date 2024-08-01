@@ -32,10 +32,10 @@ public class BookService {
 	
 	public Book updateBook(UUID id, Book updatedBook) {
 		Book existingBook = bookRepository.findById(id).orElseThrow(() -> new DataAlreadyExistException("Book not found"));
-			existingBook.setTitle(updatedBook.getTitle());
-			existingBook.setAuthor(updatedBook.getAuthor());
-			existingBook.setQuantity(updatedBook.getQuantity());
-			return bookRepository.save(existingBook);
+		existingBook.setTitle(updatedBook.getTitle());
+		existingBook.setAuthor(updatedBook.getAuthor());
+		existingBook.setQuantity(updatedBook.getQuantity());
+		return bookRepository.save(existingBook);
 	}
 	
 	public String deleteBook(UUID id) {
